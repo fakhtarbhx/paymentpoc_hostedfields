@@ -16,140 +16,49 @@
         --btn: rgba(255, 255, 255, 0.12);
         --btnPrimary: rgba(255, 255, 255, 0.22);
       }
-
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
-          "Apple Color Emoji", "Segoe UI Emoji";
-        background: var(--bg);
-        color: var(--text);
-      }
-
-      .container {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 16px 12px 20px;
-      }
-
-      .panel {
-        border: 1px solid var(--border);
-        background: var(--panel);
-        border-radius: 14px;
-        padding: 14px;
-      }
-
-      .row {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      @media (min-width: 560px) {
-        .row.two {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      label {
-        display: block;
-        font-size: 12px;
-        color: var(--muted);
-        margin: 0 0 6px;
-      }
-
-      .hosted-field {
-        box-sizing: border-box;
-        padding: 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.06);
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-      }
-
-      .mock-input {
-        width: 100%;
-        box-sizing: border-box;
-        border: none;
-        background: transparent;
-        color: var(--text);
-        outline: none;
-        font-size: 16px;
-      }
-
-      .message {
-        display: none;
-        margin-top: 12px;
-        padding: 10px 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.04);
-        font-size: 13px;
-        line-height: 1.4;
-      }
-
-      .message.ok {
-        border-color: rgba(74, 222, 128, 0.35);
-        color: var(--ok);
-      }
-
-      .message.error {
-        border-color: rgba(255, 91, 91, 0.35);
-        color: var(--danger);
-      }
-
-      .actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 14px;
-      }
-
-      button {
-        flex: 1;
-        min-height: 44px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: var(--btn);
-        color: var(--text);
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      button.primary {
-        background: var(--btnPrimary);
-      }
-
-      button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
+      body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+      .container { max-width: 720px; margin: 0 auto; padding: 16px 12px 20px; }
+      .panel { border: 1px solid var(--border); background: var(--panel); border-radius: 14px; padding: 14px; }
+      .row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+      @media (min-width: 560px) { .row.two { grid-template-columns: 1fr 1fr; } }
+      label { display: block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+      .hosted-field { box-sizing: border-box; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.06); min-height: 44px; display: flex; align-items: center; }
+      .mock-input { width: 100%; box-sizing: border-box; border: none; background: transparent; color: var(--text); outline: none; font-size: 16px; }
+      .message { display: none; margin-top: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.04); font-size: 13px; line-height: 1.4; }
+      .message.ok { border-color: rgba(74, 222, 128, 0.35); color: var(--ok); }
+      .message.error { border-color: rgba(255, 91, 91, 0.35); color: var(--danger); }
+      .actions { display: flex; gap: 10px; margin-top: 14px; }
+      button { flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--btn); color: var(--text); font-weight: 600; cursor: pointer; }
+      button.primary { background: var(--btnPrimary); }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
     </style>
   </head>
-
   <body>
     <div class="container">
-      <form id="payment-form" class="panel" aria-label="Card entry form">
+      <form id="payment-form" class="panel" aria-label="Card entry form" autocomplete="off">
         <div class="row" style="margin-top: 12px">
           <div>
-            <label>Card Number</label>
-            <div id="card-number" class="hosted-field"></div>
+            <label for="cardNumberInput">Card Number</label>
+            <div class="hosted-field">
+              <input id="cardNumberInput" class="mock-input" inputmode="numeric" autocomplete="cc-number" placeholder="4111 1111 1111 1111" required maxlength="19" pattern="\d{16,19}">
+            </div>
           </div>
         </div>
-
         <div class="row two" style="margin-top: 12px">
           <div>
-            <label>Expiration Date</label>
-            <div id="expiration-date" class="hosted-field"></div>
+            <label for="expInput">Expiration Date</label>
+            <div class="hosted-field">
+              <input id="expInput" class="mock-input" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" required maxlength="5" pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$">
+            </div>
           </div>
           <div>
-            <label>CVV</label>
-            <div id="cvv" class="hosted-field"></div>
+            <label for="cvvInput">CVV</label>
+            <div class="hosted-field">
+              <input id="cvvInput" class="mock-input" inputmode="numeric" autocomplete="cc-csc" placeholder="123" required maxlength="4" pattern="\d{3,4}">
+            </div>
           </div>
         </div>
-
-        <div id="message" class="message" role="status" aria-live="polite">Initializing...</div>
-
+        <div id="message" class="message" role="status" aria-live="polite"></div>
         <div class="actions">
           <button id="cancelBtn" type="button">Cancel</button>
           <button id="payBtn" class="primary" type="submit" disabled>Continue</button>
@@ -157,300 +66,73 @@
       </form>
     </div>
     <script>
+      // Only mock mode for GitHub Pages (no Braintree)
       (function () {
-        // Mock controls (edit these two values when testing locally)
-        // 1) MOCK: 1 (enabled) / 0 (disabled)
-        // 2) RESULT: 'success' / 'fail'
-        var MOCK = 1;
-        var RESULT = 'success';
-
-        function getParam(name) {
-          var params = new URLSearchParams(window.location.search);
-          var value = params.get(name);
-          return value === null ? '' : value;
-        }
-
-        function setMessage(text, kind) {
-          var el = document.getElementById('message');
-          el.className = 'message' + (kind ? ' ' + kind : '');
-          el.textContent = text;
-          reportHeight();
-        }
-
-        function postToApp(payload) {
-          try {
-            var msg = JSON.stringify(payload);
-            if (window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === 'function') {
-              window.ReactNativeWebView.postMessage(msg);
-              return true;
-            }
-            return false;
-          } catch (e) {
-            return false;
-          }
-        }
-
-        var lastHeight = 0;
-        var heightRafPending = false;
-
-        function getDocumentHeight() {
-          // IMPORTANT: avoid using viewport-based measurements (e.g. clientHeight)
-          // because they can over-report and create blank space in the app's WebView.
-          var container = document.querySelector('.container');
-          if (container && container.scrollHeight) {
-            return container.scrollHeight;
-          }
-
-          var form = document.getElementById('payment-form');
-          if (form && form.scrollHeight) {
-            return form.scrollHeight;
-          }
-
-          var body = document.body;
-          if (body && body.scrollHeight) {
-            return body.scrollHeight;
-          }
-
-          return 0;
-        }
-
-        function reportHeight() {
-          if (heightRafPending) {
-            return;
-          }
-          heightRafPending = true;
-          window.requestAnimationFrame(function () {
-            heightRafPending = false;
-            var h = getDocumentHeight();
-            if (!h) {
-              return;
-            }
-            if (Math.abs(h - lastHeight) < 2) {
-              return;
-            }
-            lastHeight = h;
-            postToApp({ type: 'bhx_card_entry_height', height: h });
-          });
-        }
-
-        function safeRedirect(returnUrl, query) {
-          if (!returnUrl) {
-            return;
-          }
-          var glue = returnUrl.indexOf('?') >= 0 ? '&' : '?';
-          window.location.assign(returnUrl + glue + query);
-        }
-
-        function notifyReady() {
-          postToApp({ type: 'bhx_card_entry_ready' });
-          reportHeight();
-        }
-
-        function notifyResult(result) {
-          var posted = postToApp({ type: 'bhx_card_entry_result', result: result });
-          reportHeight();
-
-          // Optional fallback if someone uses this page in an external browser flow
-          if (!posted && result && result.returnUrl) {
-            var q = 'status=' + encodeURIComponent(result.status || 'failed');
-            if (result.nonce) {
-              q += '&nonce=' + encodeURIComponent(result.nonce);
-            }
-            safeRedirect(result.returnUrl, q);
-          }
-        }
-
-        var quoteId = getParam('quoteId');
-        var apiBaseUrl = getParam('apiBaseUrl');
-        var returnUrl = getParam('returnUrl');
-        var mockMode = Number(MOCK) === 1;
-        var mockOutcome = String(RESULT || 'success').toLowerCase();
-
-        var clientTokenPath = getParam('clientTokenPath') || '/api/payments/braintree/client-token';
-
-        if (apiBaseUrl && apiBaseUrl.endsWith('/')) {
-          apiBaseUrl = apiBaseUrl.slice(0, -1);
-        }
-
-        var clientTokenUrl = (apiBaseUrl || '') + clientTokenPath;
+        document.getElementById('message').style.display = 'block';
+        document.getElementById('message').textContent = 'Initializing...';
 
         var payBtn = document.getElementById('payBtn');
         var cancelBtn = document.getElementById('cancelBtn');
         var form = document.getElementById('payment-form');
+        var cardNumberInput = document.getElementById('cardNumberInput');
+        var expInput = document.getElementById('expInput');
+        var cvvInput = document.getElementById('cvvInput');
+        var messageEl = document.getElementById('message');
+
+        function validateInputs() {
+          return (
+            cardNumberInput.value.replace(/\s+/g, '').length >= 13 &&
+            expInput.value.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/) &&
+            cvvInput.value.length >= 3
+          );
+        }
+
+        function setMessage(text, kind) {
+          messageEl.className = 'message' + (kind ? ' ' + kind : '');
+          messageEl.textContent = text;
+          messageEl.style.display = 'block';
+        }
+
+        function resetForm() {
+          payBtn.disabled = true;
+          cancelBtn.disabled = false;
+        }
+
+        cardNumberInput.addEventListener('input', updateBtnState);
+        expInput.addEventListener('input', updateBtnState);
+        cvvInput.addEventListener('input', updateBtnState);
+
+        function updateBtnState() {
+          payBtn.disabled = !validateInputs();
+        }
 
         cancelBtn.addEventListener('click', function () {
           setMessage('Canceled.', '');
-          notifyResult({ status: 'canceled', returnUrl: returnUrl || '' });
+          cardNumberInput.value = '';
+          expInput.value = '';
+          cvvInput.value = '';
+          resetForm();
         });
-
-        function fetchClientToken() {
-          var payload = {
-            quoteId: quoteId || null
-          };
-
-          return fetch(clientTokenUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          })
-            .then(function (res) {
-              if (!res.ok) {
-                return fetch(clientTokenUrl, { method: 'GET' });
-              }
-              return res;
-            })
-            .then(function (res) {
-              if (!res.ok) {
-                throw new Error('Failed to fetch client token');
-              }
-              return res.json();
-            })
-            .then(function (data) {
-              if (!data || !data.clientToken) {
-                throw new Error('Client token response missing clientToken');
-              }
-              return data.clientToken;
-            });
-        }
-
-        var hostedFieldsInstance = null;
-
-        setMessage('Initializing...', '');
-
-        // Report height a few times as secure iframes load.
-        window.addEventListener('load', function () {
-          reportHeight();
-          window.setTimeout(reportHeight, 350);
-          window.setTimeout(reportHeight, 900);
-          window.setTimeout(reportHeight, 1800);
-        });
-
-        window.addEventListener('resize', function () {
-          reportHeight();
-        });
-
-        function mountMockInputs() {
-          var cardNumberEl = document.getElementById('card-number');
-          var expEl = document.getElementById('expiration-date');
-          var cvvEl = document.getElementById('cvv');
-
-          if (cardNumberEl) {
-            cardNumberEl.innerHTML =
-              '<input class="mock-input" inputmode="numeric" autocomplete="cc-number" placeholder="4111 1111 1111 1111" />';
-          }
-          if (expEl) {
-            expEl.innerHTML = '<input class="mock-input" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" />';
-          }
-          if (cvvEl) {
-            cvvEl.innerHTML = '<input class="mock-input" inputmode="numeric" autocomplete="cc-csc" placeholder="123" />';
-          }
-        }
-
-        function initMockMode() {
-          mountMockInputs();
-          hostedFieldsInstance = {
-            tokenize: function () {
-              var fakeNonce = 'fake-nonce-' + String(Date.now());
-              return Promise.resolve({ nonce: fakeNonce });
-            }
-          };
-
-          payBtn.disabled = false;
-          payBtn.textContent = 'Continue';
-          setMessage('Mock mode enabled. Ready.', '');
-          notifyReady();
-        }
-
-        if (mockMode) {
-          initMockMode();
-        } else {
-          fetchClientToken()
-            .then(function (clientToken) {
-              setMessage('Loading secure fields...', '');
-              return braintree.client.create({ authorization: clientToken });
-            })
-            .then(function (clientInstance) {
-              return braintree.hostedFields.create({
-                client: clientInstance,
-                styles: {
-                  input: {
-                    'font-size': '16px',
-                    color: '#f5f7fb'
-                  },
-                  ':focus': {
-                    color: '#f5f7fb'
-                  },
-                  '.invalid': {
-                    color: '#ff5b5b'
-                  },
-                  '.valid': {
-                    color: '#4ade80'
-                  }
-                },
-                fields: {
-                  number: {
-                    selector: '#card-number',
-                    placeholder: '4111 1111 1111 1111'
-                  },
-                  expirationDate: {
-                    selector: '#expiration-date',
-                    placeholder: 'MM/YY'
-                  },
-                  cvv: {
-                    selector: '#cvv',
-                    placeholder: '123'
-                  }
-                }
-              });
-            })
-            .then(function (hf) {
-              hostedFieldsInstance = hf;
-              payBtn.disabled = false;
-              payBtn.textContent = 'Continue';
-              setMessage('Ready.', '');
-              notifyReady();
-            })
-            .catch(function (err) {
-              setMessage('Unable to initialize card entry form. ' + (err && err.message ? err.message : ''), 'error');
-              notifyResult({ status: 'failed', message: 'init_failed', returnUrl: returnUrl || '' });
-            });
-        }
 
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          if (!hostedFieldsInstance) {
-            setMessage('Card entry form is not ready yet.', 'error');
-            notifyResult({ status: 'failed', message: 'not_ready', returnUrl: returnUrl || '' });
-            return;
-          }
-
           payBtn.disabled = true;
           cancelBtn.disabled = true;
+
           setMessage('Saving payment method...', '');
-
-          hostedFieldsInstance
-            .tokenize()
-            .then(function (payload) {
-              if (mockMode) {
-                if (mockOutcome === 'failed' || mockOutcome === 'error') {
-                  throw new Error('Mock card entry failed.');
-                }
-              }
-
-              setMessage('Saved.', 'ok');
-              notifyResult({ status: 'success', nonce: payload.nonce, returnUrl: returnUrl || '' });
-              return Promise.resolve({ nonce: payload.nonce });
-            })
-            .catch(function (err) {
-              var msg = err && err.message ? err.message : 'Unable to save payment method.';
-              setMessage(msg, 'error');
-              notifyResult({ status: 'failed', message: msg, returnUrl: returnUrl || '' });
-            })
-            .finally(function () {
-              payBtn.disabled = false;
-              cancelBtn.disabled = false;
-            });
+          setTimeout(function () {
+            if (!validateInputs()) {
+              setMessage('Invalid card details.', 'error');
+              resetForm();
+              return;
+            }
+            setMessage('Saved (mock, no Braintree).', 'ok');
+            resetForm();
+          }, 800);
         });
+
+        setMessage('Ready.', '');
+        resetForm();
       })();
     </script>
   </body>
